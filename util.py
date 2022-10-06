@@ -8,19 +8,27 @@ from sklearn.metrics import mean_squared_error
 countries = gpd.read_file(
                gpd.datasets.get_path("naturalearth_lowres"))
 
-def rmse(y_true, y_pred):
+def rmse(y_true, y_pred, labels,weighted=True):
+    if weighted:
+        weight = np.cos(labels["lat"].values)
+    else:
+        weight=None
     return mean_squared_error(
-        y_true, y_pred,
+        y_true, y_pred, sample_weight=weight,
         squared=False
     )
 
 
-def rmse_by_month(y_true, y_pred):
-    
-    return [mean_squared_error(
-        y_true[:, m], y_pred[:, m],
-        squared=False
-    ) for m in range(y_true.shape[1])]
+def rmse_by_month(y_true, y_pred, labels,weighted=True):
+    if weighted:
+        weight = np.cos(labels["lat"].values)
+    else:
+        weight=None
+    return mean_squared_error(
+        y_true, y_pred, sample_weight=weight,
+        squared=False,multioutput="raw_values"
+    )
+
 
 
 def plot_mean_errors(y_true, y_pred, labels, title, figsize=(20,6)):
