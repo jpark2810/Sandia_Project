@@ -10,7 +10,7 @@ countries = gpd.read_file(
 
 def rmse(y_true, y_pred, labels,weighted=True):
     if weighted:
-        weight = np.cos(labels["lat"].values)
+        weight = np.cos(labels["lat"].values * np.pi / 180)
     else:
         weight=None
     return mean_squared_error(
@@ -21,7 +21,7 @@ def rmse(y_true, y_pred, labels,weighted=True):
 
 def rmse_by_month(y_true, y_pred, labels,weighted=True):
     if weighted:
-        weight = np.cos(labels["lat"].values)
+        weight = np.cos(labels["lat"].values * np.pi / 180)
     else:
         weight=None
     return mean_squared_error(
