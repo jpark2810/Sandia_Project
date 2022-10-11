@@ -122,7 +122,7 @@ def animate_predictions(y_true, y_pred, labels, filename,
         # with "T" in the initial DataFrame.  The five-month
         # lag is one month back, the four-month lag is
         # two months back, etc.
-        tmp[key] = tmp[key].shift((horizon-lag) * month_offset)
+        tmp[key] = tmp[key].shift((lag-horizon) * month_offset)
         
     # set up values and latlongs for pcolormesh
     # insure that all values are in the same order.
@@ -243,7 +243,7 @@ def animate_residuals(y_true, y_pred, labels, filename,
         # with "T" in the initial DataFrame.  The five-month
         # lag is one month back, the four-month lag is
         # two months back, etc.
-        tmp[key] = tmp[key].shift((horizon-lag) * month_offset)
+        tmp[key] = tmp[key].shift((lag - horizon) * month_offset)
         
     # set up values and latlongs for pcolormesh
     # insure that all values are in the same order.
