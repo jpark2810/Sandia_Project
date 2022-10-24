@@ -274,7 +274,7 @@ def animate_residuals(y_true, y_pred, labels, filename,
     # so they remain consistent across all frames
     pred_values = tmp[tmp.columns[4:]].values
     true_values = np.vstack([tmp["T"]] * len(lags)).T
-    all_residuals = pred_values - true_values
+    all_residuals = (pred_values - true_values) / pred_values
     vmin = np.nanmin(all_residuals)
     vmax = np.nanmax(all_residuals)
     
@@ -297,14 +297,14 @@ def animate_residuals(y_true, y_pred, labels, filename,
     # of the animation
     def animate(i):
         filtered = tmp[tmp.date == dates[i]]
-        
+
         # update true temperature colormesh
         T = filtered["T"].values.reshape(lons.shape)
         
         # update predicted temperature colormeshes
         for j, key in enumerate(keys):
             pred = filtered[key].values.reshape(lons.shape)
-            cmesh_lags[j].set_array(pred - T)
+            cmesh_lags[j].set_array((pred - T) / pred)
             # index is off by 1 since first subplot
             # contains the observed temperatures
             ax[j].set_title(f"{key} residuals: {dates[i]}")
