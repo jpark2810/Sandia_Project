@@ -1,7 +1,7 @@
 # Sandia_Project
 
 
-The models of interest or in the Best_Model.ipynb file.
+The models of interest are in the Best_Model.ipynb file.
 Run the notebook with the 'Strat_Temp_AOD_Flux.csv' file in the same directory.
 The notebook trains two linear convolutional neural networks that take (16,48,24) tensors and output (16,48,6) tensors of temperatures
 The 16x48 correspond to the spatial grid of latitudes and longitudes and the last dimension are the time steps
